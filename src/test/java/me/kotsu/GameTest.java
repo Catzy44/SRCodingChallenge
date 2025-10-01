@@ -17,9 +17,9 @@ public class GameTest {
 	
 	@Test
 	void constructorThrowsWhenTeamIsNull() {
-		assertThrows(IllegalArgumentException.class, () -> new Game(null, new Team("A")));
-		assertThrows(IllegalArgumentException.class, () -> new Game(new Team("A"), null));
-		assertThrows(IllegalArgumentException.class, () -> new Game(null, null));
+		assertThrows(NullPointerException.class, () -> new Game(null, new Team("A")));
+		assertThrows(NullPointerException.class, () -> new Game(new Team("A"), null));
+		assertThrows(NullPointerException.class, () -> new Game(null, null));
 	}
 	
 	@Test

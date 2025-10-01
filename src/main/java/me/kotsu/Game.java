@@ -30,11 +30,11 @@ public class Game {
 		if(score < 0) {
 			throw new IllegalArgumentException("score < 0");
 		}
-		this.homeTeamScore = score;
+		this.awayTeamScore = score;
 	}
 	
 	@Override
 	public String toString() {
-		return String.format("$s %d - %s %d", homeTeam.getTeamName(), homeTeamScore, awayTeam.getTeamName(), awayTeamScore);
+		return String.format("%s %d - %s %d", homeTeam.getTeamName(), homeTeamScore, awayTeam.getTeamName(), awayTeamScore);
 	}
 }

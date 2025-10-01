@@ -9,10 +9,6 @@ java {
 	sourceCompatibility = '17'
 }
 
-tasks.test {
-    enabled = false
-}
-
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
@@ -26,9 +22,13 @@ repositories {
 
 dependencies {
 	testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	
 	compileOnly 'org.projectlombok:lombok:1.18.42'
 	annotationProcessor 'org.projectlombok:lombok:1.18.42'
+	
+	testCompileOnly 'org.projectlombok:lombok:1.18.42'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.42'
 }
 
 tasks.named('test') {
