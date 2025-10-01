@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class TeamTest {
 	
 	@Test
-	void constructorCreatesTeamWithValidName() {
+	void constructorCreatesTeamWithValidName() throws IllegalArgumentException {
 		Team t = new Team("A");
 		assertEquals("A", t.getTeamName());
 	}
