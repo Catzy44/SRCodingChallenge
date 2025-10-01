@@ -104,4 +104,37 @@ public class ScoreboardTest {
 		assertEquals(g.toString(), fragments[1]);//A10 B2 (12
 		assertEquals(g2.toString(), fragments[2]);//E3 F3 (6
 	}
+	
+	@Test
+	void summaryReturnsCorrectDataInPredefiniedFormatFromExample() throws Exception {
+		Scoreboard sb = new Scoreboard();
+		Game g = sb.startNewGame(new Team("Mexico"), new Team("Canada"));
+		sb.updateGameScore(g, 0, 5);
+		
+		Game g1 = sb.startNewGame(new Team("Spain"), new Team("Brazil"));
+		sb.updateGameScore(g1, 10, 2);//first one (most recent) (later added)
+
+		Game g2 = sb.startNewGame(new Team("Germany"), new Team("France"));
+		sb.updateGameScore(g2, 2, 2);
+		
+		Game g3 = sb.startNewGame(new Team("Uruguay"), new Team("Italy"));
+		sb.updateGameScore(g3, 6, 6);
+		
+		Game g4 = sb.startNewGame(new Team("Argentina"), new Team("Australia"));
+		sb.updateGameScore(g4, 3, 1);
+		
+		String summary = sb.getSummary();
+		assertNotNull(summary);
+		assertFalse(summary.isEmpty());
+		assertTrue(summary.contains(Scoreboard.SEPARATOR));
+		
+		String fragments[] = summary.split(Scoreboard.SEPARATOR);
+		assertEquals(5, fragments.length);
+		
+		assertEquals(g3.toString(), fragments[0]);
+		assertEquals(g1.toString(), fragments[1]);
+		assertEquals(g.toString(), fragments[2]);
+		assertEquals(g4.toString(), fragments[3]);
+		assertEquals(g2.toString(), fragments[4]);
+	}
 }
