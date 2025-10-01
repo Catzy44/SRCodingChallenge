@@ -17,6 +17,9 @@ public class Scoreboard {
 		return newGame;
 	}
 	public void finishAGame(Game game) {
+		if(!gamesInProgress.contains(game)) {
+			throw new IllegalArgumentException("Provided Game not exists inside this Scoreboard instance");
+		}
 		gamesInProgress.remove(game);
 	}
 	public void updateGameScore(Game game, int home, int away  ) {
