@@ -28,7 +28,11 @@ public class Scoreboard {
 	}
 	public String getSummary() throws Exception {
 		return gamesInProgress.stream()
-				.sorted(Comparator.comparing(Game::getTeamsScoresSummed))
+				.sorted(
+						Comparator
+						.comparing(Game::getTeamsScoresSummed)
+						.thenComparing(Game::getCreatedAt)
+						)
 				.map(Game::toString)
 				.reduce("", (a,b) -> a+SEPARATOR+b);
 	}
