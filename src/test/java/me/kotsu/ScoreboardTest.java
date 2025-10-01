@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 public class ScoreboardTest {
 	@Test
-	void constructorConstructsEmptyScoreboard() {
+	void constructorConstructsEmptyScoreboard() throws Exception {
 		Scoreboard sb = new Scoreboard();
 		assertTrue(sb.getGamesInProgress().isEmpty());
 		assertTrue(sb.getSummary().isEmpty());
@@ -26,21 +26,20 @@ public class ScoreboardTest {
 	@Test
 	void finishAGameRemovesGameFromScoreboard() {
 		Scoreboard sb = new Scoreboard();
-		Game g = new Game(new Team("A"), new Team("B"));
-		sb.startNewGame(g);
+		Game g = sb.startNewGame(new Team("A"), new Team("B"));
 		sb.finishAGame(g);
 		assertTrue(sb.getGamesInProgress().isEmpty());
 	}
 	
 	@Test
-	void finishANonExistentGameThrows() {
+	void finishANonExistentGameThrows() throws Exception {
 		Scoreboard sb = new Scoreboard();
 		sb.startNewGame(new Team("A"), new Team("B"));
 		
 		Game fakeGame = new Game(new Team("C"), new Team("D"));
 		
 		String summaryBeforeTry = sb.getSummary();
-		assertThrows(IllegalArgumentException.class, () -> sb.finishGame(fakeGame));
+		assertThrows(IllegalArgumentException.class, () -> sb.finishAGame(fakeGame));
 		
 		assertEquals(summaryBeforeTry, sb.getSummary());
 	}
@@ -48,8 +47,7 @@ public class ScoreboardTest {
 	@Test
 	void updateGameScoreUpdatesGameObject() {
 		Scoreboard sb = new Scoreboard();
-		Game g = new Game(new Team("A"), new Team("B"));
-		sb.startNewGame(g);
+		Game g = sb.startNewGame(new Team("A"), new Team("B"));
 		sb.updateGameScore(g, 6, 9);
 		
 		assertTrue(g.getHomeTeamScore() == 6);
@@ -57,7 +55,7 @@ public class ScoreboardTest {
 	}
 	
 	@Test
-	void updateGameScoreForNonExistentGameTHrows() {
+	void updateGameScoreForNonExistentGameTHrows() throws Exception {
 		Scoreboard sb = new Scoreboard();
 		sb.startNewGame(new Team("A"), new Team("B"));
 		
@@ -69,18 +67,15 @@ public class ScoreboardTest {
 	}
 	
 	@Test
-	void summaryReturnsCorrectDataInPredefiniedFormat() {
+	void summaryReturnsCorrectDataInPredefiniedFormat() throws Exception {
 		Scoreboard sb = new Scoreboard();
-		Game g = new Game(new Team("A"), new Team("B"));
-		sb.startNewGame(g);
+		Game g = sb.startNewGame(new Team("A"), new Team("B"));
 		sb.updateGameScore(g, 10, 2);
 		
-		Game g1 = new Game(new Team("C"), new Team("D"));
-		sb.startNewGame(g1);
+		Game g1 = sb.startNewGame(new Team("C"), new Team("D"));
 		sb.updateGameScore(g1, 6, 6);//first one
 
-		Game g2 = new Game(new Team("E"), new Team("F"));
-		sb.startNewGame(g2);
+		Game g2 = sb.startNewGame(new Team("E"), new Team("F"));
 		sb.updateGameScore(g2, 3, 3);
 		
 		String summary = sb.getSummary();
