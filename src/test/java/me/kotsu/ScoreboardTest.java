@@ -112,7 +112,7 @@ public class ScoreboardTest {
 		sb.updateGameScore(g, 0, 5);
 		
 		Game g1 = sb.startNewGame(new Team("Spain"), new Team("Brazil"));
-		sb.updateGameScore(g1, 10, 2);//first one (most recent) (later added)
+		sb.updateGameScore(g1, 10, 2);
 
 		Game g2 = sb.startNewGame(new Team("Germany"), new Team("France"));
 		sb.updateGameScore(g2, 2, 2);
