@@ -20,7 +20,21 @@ public class ScoreboardTest {
 	void startNewGameAddsNewGameToScoreboard() {
 		Scoreboard sb = new Scoreboard();
 		sb.startNewGame(new Team("A"), new Team("B"));
-		assertEquals(sb.getGamesInProgress().size(), 1);
+		assertEquals(1, sb.getGamesInProgress().size());
+	}
+	
+	@Test
+	void startNewGameBumpsGameSortingIndex() {
+		Scoreboard sb = new Scoreboard();
+		
+		Game g = sb.startNewGame(new Team("A"), new Team("B"));
+		Game g1 = sb.startNewGame(new Team("C"), new Team("D"));
+		Game g2 = sb.startNewGame(new Team("E"), new Team("F"));
+		
+		assertTrue(g.getThisGameSortIdx() < g1.getThisGameSortIdx());
+		assertTrue(g1.getThisGameSortIdx() < g2.getThisGameSortIdx());
+		
+		assertEquals(g2.getThisGameSortIdx()+1, sb.getGameSortIdx());
 	}
 	
 	@Test
@@ -41,7 +55,7 @@ public class ScoreboardTest {
 		String summaryBeforeTry = sb.getSummary();
 		assertThrows(IllegalArgumentException.class, () -> sb.finishAGame(fakeGame));
 		
-		assertEquals(summaryBeforeTry, sb.getSummary());
+		assertEquals(sb.getSummary(), summaryBeforeTry);
 	}
 	
 	@Test
@@ -63,7 +77,7 @@ public class ScoreboardTest {
 		
 		String summaryBeforeTry = sb.getSummary();
 		assertThrows(IllegalArgumentException.class, () -> sb.updateGameScore(fakeGame, 1, 1));
-		assertEquals(summaryBeforeTry, sb.getSummary());
+		assertEquals(sb.getSummary(), summaryBeforeTry);
 	}
 	
 	@Test
@@ -84,10 +98,10 @@ public class ScoreboardTest {
 		assertTrue(summary.contains(Scoreboard.SEPARATOR));
 		
 		String fragments[] = summary.split(Scoreboard.SEPARATOR);
-		assertTrue(fragments.length == 3, fragments.length+"");
+		assertEquals(3, fragments.length);
 		
-		assertEquals(g1.toString(), fragments[0], summary);// C6 D6 (12 (added later = on top
-		assertEquals(g.toString(), fragments[1], summary);//A10 B2 (12
-		assertEquals(g2.toString(), fragments[2], summary);//E3 F3 (6
+		assertEquals(g1.toString(), fragments[0]);// C6 D6 (12 (added later = on top
+		assertEquals(g.toString(), fragments[1]);//A10 B2 (12
+		assertEquals(g2.toString(), fragments[2]);//E3 F3 (6
 	}
 }
