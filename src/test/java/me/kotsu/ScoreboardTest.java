@@ -55,7 +55,7 @@ public class ScoreboardTest {
 	}
 	
 	@Test
-	void updateGameScoreForNonExistentGameTHrows() throws Exception {
+	void updateGameScoreForNonExistentGameThrows() throws Exception {
 		Scoreboard sb = new Scoreboard();
 		sb.startNewGame(new Team("A"), new Team("B"));
 		
