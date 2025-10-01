@@ -1,7 +1,5 @@
 package me.kotsu;
 
-import java.time.Instant;
-
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +15,7 @@ public class Game {
 	private int homeTeamScore;
 	private int awayTeamScore;
 	
-	private Instant createdAt = Instant.now();
+	private int thisGameSortIdx;
 	
 	public int getTeamsScoresSummed() {
 		return homeTeamScore + awayTeamScore;

@@ -73,7 +73,7 @@ public class ScoreboardTest {
 		sb.updateGameScore(g, 10, 2);
 		
 		Game g1 = sb.startNewGame(new Team("C"), new Team("D"));
-		sb.updateGameScore(g1, 6, 6);//first one
+		sb.updateGameScore(g1, 6, 6);//first one (most recent) (later added)
 
 		Game g2 = sb.startNewGame(new Team("E"), new Team("F"));
 		sb.updateGameScore(g2, 3, 3);
@@ -84,10 +84,10 @@ public class ScoreboardTest {
 		assertTrue(summary.contains(Scoreboard.SEPARATOR));
 		
 		String fragments[] = summary.split(Scoreboard.SEPARATOR);
-		assertTrue(fragments.length == 3);
+		assertTrue(fragments.length == 3, fragments.length+"");
 		
-		assertEquals(fragments[0], g1.toString());// C6 D6 (12 (added later = on top
-		assertEquals(fragments[1], g.toString());//A10 B2 (12
-		assertEquals(fragments[2], g2.toString());//E3 F3 (6
+		assertEquals(g1.toString(), fragments[0], summary);// C6 D6 (12 (added later = on top
+		assertEquals(g.toString(), fragments[1], summary);//A10 B2 (12
+		assertEquals(g2.toString(), fragments[2], summary);//E3 F3 (6
 	}
 }
