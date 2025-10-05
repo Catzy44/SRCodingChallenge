@@ -17,7 +17,7 @@ public class Scoreboard {
 	private int gameSortIdx = 0;
 	
 	public Game startNewGame(Team home, Team away) {
-		Game newGame = new Game(home, away);
+		Game newGame = new Game(home, away); //throws on NULL value - Lombok @NonNull and @RequiredArgsConstructor inside Game class
 		newGame.setThisGameSortIdx(gameSortIdx++);
 		gamesInProgress.add(newGame);
 		return newGame;
